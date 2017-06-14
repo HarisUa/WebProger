@@ -1,0 +1,36 @@
+<section class="text-center pagination-centered">
+    <div class="container col-md-5">
+        <h2 align="center">Подтверждение</h2>
+        <div class="form-group">
+            <div class="cols-sm-10">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></span>
+                    <input type="text" class="form-control" name="code" id="code"  placeholder="Введите код" required/>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group ">
+            <button onclick="getData()" id="button" name="enter" class="btn btn-primary btn-lg btn-block login-button">Подтвердить</button>
+        </div>
+        <p align="center">У меня нет кода! <a href="/recovery">Получить</a>.</p>
+        <p align="center">У меня нет аккаунта! <a href="/registration">Регистрация</a>.</p>
+    </div>
+</section>
+
+<script>
+    function getData(){
+        $.ajax({
+            type: 'POST',
+            data: {
+                code: $('#code').val()
+            },
+            url: '/confirm/request',
+            cache : false,
+            success: function(result) {
+                if (result == 'go') window.location.replace('{{site}}/');
+                else alert(result);
+            }
+        });
+    }
+</script>

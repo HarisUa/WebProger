@@ -1,0 +1,104 @@
+
+<!doctype html>
+
+<title>CodeMirror: Theme Demo</title>
+<meta charset="utf-8"/>
+<link rel=stylesheet href="../doc/docs.css">
+
+<link rel="stylesheet" href="{{ URL }}lib/codemirror.css">
+<link rel="stylesheet" href="{{ URL }}theme/ambiance.css">
+<link rel="stylesheet" href="{{ URL }}assets/css/bootstrap/bootstrap.css">
+<script src="{{ URL }}assets/js/jquery/jquery-1.9.1.min.js"></script>
+<script src="{{ URL }}lib/codemirror.js"></script>
+<script src="{{ URL }}mode/javascript/javascript.js"></script>
+<script src="{{ URL }}addon/selection/active-line.js"></script>
+<script src="{{ URL }}addon/edit/matchbrackets.js"></script>
+<style type="text/css">
+    .block {display: inline-block; width: 100%}
+    .CodeMirror {border: 1px solid black; font-size:13px}
+    iframe{
+        width:100%;
+        height:300px;
+        border-top:1px solid #eee;
+
+    }
+</style>
+<div id=nav>
+    <a href="{{ URL }}"><h1>WebProger</h1></a>
+</div>
+
+<article>
+    <h2>{{ tasks.title }}</h2>
+    <p>{{ tasks.fullinfo }}</p>
+    <p>{{ tasks.zd }}</p>
+    <button id="run">Run</button><button id="save">Save</button><button id="test">Test</button>
+    <div class="row">
+        <div class="col-md-6">
+            <textarea id="code" name="code">{{ gameid.code }}</textarea>
+        </div>
+        <div class="col-md-6">
+            <iframe id="preview"></iframe>
+        </div>
+    </div>
+    <script>
+
+        var editorHtml = CodeMirror.fromTextArea(document.getElementById("code"), {
+            lineNumbers: true,
+            styleActiveLine: true,
+            matchBrackets: true,
+        });
+
+        function updatePreview() {
+            previewFrame = document.getElementById('preview');
+            preview =  previewFrame.contentDocument ||  previewFrame.contentWindow.document;
+            preview.open();
+            preview.write("<"+"script>"+editorHtml.getValue()+"</"+"script>");
+            preview.close();
+
+        }
+
+        $('#run').click(function () {
+           updatePreview();
+        });
+
+        $('#save').click(function () {
+            $.ajax({
+                type: 'POST',
+                data: {
+                    gameid: "{{ gameid.id }}",
+                    code: editorHtml.getValue(),
+                    task: "{{ tasks.id }}",
+                },
+                url: '/tasks/save',
+                async: false,
+                cache : false,
+                success: function(result) {
+                    alert(result);
+                    location.reload();
+                }
+            });
+        });
+
+        $('#test').click(function () {
+            updatePreview();
+            $.ajax({
+                type: 'POST',
+                data: {
+                    userresult: "{{ tasks.result }}",
+                    resultzd: preview.body.innerHTML,
+                    gameid: "{{ gameid.id }}",
+                    code: editorHtml.getValue(),
+                    task: "{{ tasks.id }}",
+                },
+                url: '/tasks/test',
+                async: false,
+                cache : false,
+                success: function(result) {
+                    alert(result);
+                    location.reload()
+                }
+            });
+        });
+
+    </script>
+</article>

@@ -1,0 +1,49 @@
+<section class="text-center pagination-centered">
+    <div class="container col-md-5">
+        <h2 align="center">Вход</h2>
+        <div class="form-group">
+            <div class="cols-sm-10">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></span>
+                    <input type="text" class="form-control" name="login" id="login"  placeholder="Введите логин" required/>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="cols-sm-10">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                    <input type="password" class="form-control" name="password" id="password"  placeholder="Введите пароль" required/>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group ">
+            <button onclick="getData()" id="button" name="enter" class="btn btn-primary btn-lg btn-block login-button">Вход</button>
+        </div>
+        <p align="center">Кажется я <a href="/recovery">забыл пароль</a>!</p>
+        <p align="center">У меня нет аккаунта! <a href="/registration">Регистрация</a>.</p>
+    </div>
+</section>
+
+<script>
+    function getData(){
+        var name = $('#login').val();
+        var pass = $('#password').val();
+        $.ajax({
+            type: 'POST',
+            data: {
+                login: name,
+                pass: pass,
+            },
+            url: '/login/request',
+            async: false,
+            cache : false,
+            success: function(result) {
+                if (result == 'go') window.location.replace('{{site}}/');
+                else alert(result);
+            }
+        });
+    }
+</script>

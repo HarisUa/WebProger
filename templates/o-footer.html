@@ -1,0 +1,30 @@
+<!-- Custom JQuery -->
+<script src="{{site}}assets/js/app/custom.js" type="text/javascript"></script>
+
+
+
+<script>
+    function show()
+    {
+        $.get( '/index/refresh', function ( data ) {
+            var pars = jQuery.parseJSON( data );
+            $('.user-name').html( pars.login );
+            $('.img-circle').attr("src", "{{ site }}assets/images/avtar/" + pars.avatar);
+            $('.coins').html ( ' ' + pars.coins );
+            $('title').html ( 'WebProger | ' + pars.login );
+        });
+    }
+
+    $(document).ready(function(){
+        show();
+        setInterval('show()', 3000);
+    });
+
+    $('#exit').click(function () {
+        $.get( '/profile/logout', function () {
+            location.reload();
+        });
+    })
+</script>
+</body>
+</html>

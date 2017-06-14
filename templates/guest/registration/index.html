@@ -1,0 +1,70 @@
+<div class="info">
+    <div class="container col-md-5">
+        <h2 align="center">Регистрация!</h2>
+        <h5 align="center">Зарегистрируйся для бета-теста.</h5>
+        <div class="form-group">
+            <div class="cols-sm-10">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></span>
+                    <input type="text" class="form-control" name="login" id="login" placeholder="Введите логин" required/>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="cols-sm-10">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                    <input type="text" class="form-control" id="email"  placeholder="Введите Email" required />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="cols-sm-10">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                    <input type="password" class="form-control" name="password" id="password"  placeholder="Введите пароль" required/>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="cols-sm-10">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                    <input type="password" class="form-control" name="confirm" id="confirm"  placeholder="Подтвердите пароль" required/>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group ">
+            <button onclick="getData()" id="button" name="enter" class="btn btn-primary btn-lg btn-block login-button">Регистрация</button>
+        </div>
+        <p align="center">Я уже зарегистрирован! <a href="/login">Войти</a>.</p>
+    </div>
+</div>
+
+<script>
+    function getData(){
+        var name = $('#login').val();
+        var email = $('#email').val();
+        var pass = $('#password').val();
+        var repass = $('#confirm').val();
+        $.ajax({
+            type: 'POST',
+            data: {
+                login: name,
+                email: email,
+                pass: pass,
+                repass: repass
+            },
+            url: '/registration/request',
+            cache : false,
+            success: function(result) {
+                if (result == 'go') window.location.replace('{{site}}/confirm');
+                else alert(result);
+            }
+        });
+    }
+</script>

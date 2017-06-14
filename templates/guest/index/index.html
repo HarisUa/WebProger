@@ -1,0 +1,124 @@
+<div class="info">
+    <div class="container">
+        <h2 align="center">Это бесплатно!</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="text-editor-wrap">
+                    <div class="title-bar"><span class="title">WebProger.js &mdash; bash &mdash; 80x<span class="terminal-height">25</span></span></div>
+                    <div class="text-body">
+                        Мы поможем <span id="typed" style="color: red"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h5 align="center">Зарегистрируйся для бета-теста.</h5>
+                <div class="form-group">
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="name" id="name"  placeholder="Введите логин" required/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="email" id="email"  placeholder="Введите Email" required />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                            <input type="password" class="form-control" name="password" id="password"  placeholder="Введите пароль" required/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                            <input type="password" class="form-control" name="confirm" id="confirm"  placeholder="Подтвердите пароль" required/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group ">
+                    <input onclick="getData()" id="submit" type="submit" name="submit" class="btn btn-primary btn-lg btn-block login-button" value="Регистрация" />                </div>
+                <p align="center">Я уже зарегистрирован! <a href="/login">Войти</a>.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="lang">
+    <div class="row"></div>
+    <h5 class="heading">Изучаемые языки:</h5>
+    <img src="http://treerock.me/images/pr_nodejs.png" alt="">
+    <div class="fine-print">*В настоящее время эти языки в бета-версии. После регистрации вы будете иметь возможность работать с ними.</div>
+</section>
+
+<section class="info">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <i class="fa fa-tasks fa-5x col-md-12" aria-hidden="true"></i>
+                <strong class="statistics__num col-md-12">2</strong>
+                <p><span class="statistics__text col-md-12">Заданий и испытаний</span>
+            </div>
+            <div class="col-md-4">
+                <i class="fa fa-users fa-5x col-md-12" aria-hidden="true"></i>
+                <strong class="statistics__num col-md-12">4</strong>
+                <p><span class="statistics__text col-md-12">Пользователей</span></p>
+            </div>
+            <div class="col-md-4">
+                <i class="fa fa-check fa-5x col-md-12" aria-hidden="true"></i>
+                <strong class="statistics__num col-md-12">3</strong>
+                <p><span class="statistics__text col-md-12">Заданий выполнено</span></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function getData(){
+        var name = $('#name').val();
+        var email = $('#email').val();
+        var pass = $('#password').val();
+        var repass = $('#confirm').val();
+        $.ajax({
+            type: 'POST',
+            data: {
+                login: name,
+                email: email,
+                pass: pass,
+                repass: repass
+            },
+            url: '/registration/request',
+            cache : false,
+            success: function(result) {
+                if (result == 'go') window.location.replace('{{site}}/confirm');
+                else alert(result);
+            }
+        });
+    }
+</script>
+
+<section class="skill">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="https://www.codewars.com/assets/landing/copy-skills.png">
+        </div>
+        <div class="text col-md-6">
+            <div class="container">
+                <h3>Оттачивать свои навыки</h3>
+                <p>Испытайте себя выполняя задания созданные сообществом для укрепления различных навыков. Улучшите мастерство Вашего текущего языка, а также расширить понимание нового.</p>
+            </div>
+        </div>
+    </div>
+</section>

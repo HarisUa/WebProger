@@ -1,0 +1,69 @@
+<footer id="footer">
+    <ul>
+        <li>
+            <p class="home">Главная</p>
+            <a class="logo" href="/">WebProger <i>&copy; 2017</i></a>
+        </li>
+        <li>
+            <p class="services">WebProger</p>
+            <ul>
+                <li><a href="/">Главная</a></li>
+                <li><a href="/log">Вход</a></li>
+                <li><a href="/reg">Регистрация</a></li>
+            </ul>
+        </li>
+        <li>
+            <p class="reachus">Связь</p>
+            <ul>
+                <li><a href="https://vk.com/yarik.smile" target="_blank">VK</a></li>
+                <li><a href="https://twitter.com/Jessie97566152" target="_blank">Twitter</a></li>
+                <li><a href="https://www.facebook.com/yaroslav.kcharytonyuk" target="_blank">Facebook</a></li>
+            </ul>
+        </li>
+        <li>
+            <p class="clients">Clients</p>
+            <ul>
+                <li><a href="#">Login Area</a></li>
+                <li><a href="#">Support Center</a></li>
+                <li><a href="#">FAQ</a></li>
+            </ul>
+        </li>
+    </ul>
+</footer>
+
+<script src="{{ site }}public/js/jquery-3.1.1.min.js"></script>
+<script src="{{ site }}public/js/tether.js"></script>
+<script src="{{ site }}public/js/bootstrap.min.js"></script>
+<script src="{{ site }}public/js/typed.js"></script>
+<script src="{{ site }}public/js/footer-reveal.min.js"></script>
+
+<script>
+    $(function(){
+        $("#typed").typed({
+            strings: ["изучить программирование.",
+                "сделать первые шаги в веб-программировании.",
+                "использоваться знаниями на практике.", ],
+            typeSpeed: 50,
+            backDelay: 3000,
+            loop: true,
+            loopCount: false,
+            callback: function(){ foo(); },
+            resetCallback: function() { newTyped(); }
+        });
+        function foo() {}
+        function newTyped() {}
+
+        $('#footer').footerReveal();
+    });
+
+    function reSize() {
+        var n = $("body").width() / 15;
+        $("h1").css('fontSize', n + "pt");
+        $("h3").css('fontSize', (n/20) * 4.2 + "pt");
+    }
+    $(window).on("resize", reSize);
+    $(document).ready(reSize);
+
+</script>
+</body>
+</html>
